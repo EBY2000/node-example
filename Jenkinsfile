@@ -69,11 +69,11 @@ pipeline {
 	}		
 	
 
-   // post {
-   //     always {
-   //         sh 'docker compose down -v || true'
-   //         sh 'docker rmi platform-node-test:${BUILD_ID}'
+    post {
+        always {
+            sh 'docker compose down -v || true'
+            sh 'docker rmi platform-node-test:${BUILD_ID}'
             
-   //     }
-   // }
+        }
+    }
 }
