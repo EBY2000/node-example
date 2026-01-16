@@ -50,9 +50,9 @@ pipeline {
             steps {
                 retry(5){
                     sh 'echo "Testing ingress path..."'
-                    sh 'curl --connect-timeout 5 --retry 5 --max-time 10 --retry-delay 0 --retry-max-time 40 http://localhost:8091/health'
+                    sh 'curl --connect-timeout 5 --retry 5 --max-time 10 --retry-delay 0 --retry-max-time 40 http://localhost:${PORT}/health'
                     sh 'echo "Testing ingress path /..."'
-                    sh 'curl -I http://localhost:8091'
+                    sh 'curl -I http://localhost:${PORT}'
                 }
             }
         }
