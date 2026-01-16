@@ -4,7 +4,7 @@ pipeline {
     environment {
         COMPOSE_PROJECT='Node-MongoDb-Example'
         DB_HOST = 'mongo_db'
-        PORT = 8081
+        PORT = '8081'
         DB_NAME = 'bezkoder_db'
     }
 
@@ -45,6 +45,20 @@ pipeline {
 				
             }
         }
+		
+		stage('Wait for platform healthy') {
+    steps {
+        script {
+            retry(10) {
+                sh '''
+                echo "Waiting for node container to be healthy..."
+                docker inspect --format='{{.State.Health.Status}}' svirtd-node-1 | grep healthy
+                '''
+                sleep 3
+            }
+        }
+    }
+}
 		
 		stage('Smoke Platform Test') {
             steps {
