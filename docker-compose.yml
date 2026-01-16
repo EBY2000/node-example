@@ -11,7 +11,7 @@ services:
       - DB_NAME=${DB_NAME}
       - PORT=${PORT}
     ports:
-      - "8091:8091"
+      - "${PORT}:${PORT}"
     depends_on:
        mongo_db:
           condition: service_healthy
