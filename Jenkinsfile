@@ -3,9 +3,9 @@ pipeline {
 
     environment {
         COMPOSE_PROJECT = 'Node-MongoDb-Example'
-        DB_HOST = credentials('DB_HOST_CRED')
+        DB_HOST = mongo_db
         PORT = 8081
-        DB_NAME = credentials('DB_NAME_APP')
+        DB_NAME = bezkoder_db
     }
 
     stages {
