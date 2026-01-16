@@ -1,0 +1,46 @@
+services:
+  node:
+   # build: .
+    image: platform-node-test:${SERVICE_TAG}
+    networks:
+        backend: {}
+    
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_NAME=${DB_NAME}
+      - PORT=${PORT}
+    ports:
+      - "8091:8091"
+    depends_on:
+       mongo_db:
+          condition: service_healthy
+    healthcheck:
+      test: curl --fail http://localhost:8091/health || exit 1
+      interval: 2s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+  
+  mongo_db:
+    image: mongo
+    restart: always
+    networks:
+        backend: {}
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/${DB_NAME} --quiet
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+  
+ 
+
+networks:
+  backend:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 172.20.0.0/24
+  
+  
+
