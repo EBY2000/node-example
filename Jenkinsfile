@@ -42,6 +42,7 @@ pipeline {
 				sh 'docker compose up -d'
 				sh 'echo "Checking containers..."'
 				sh 'docker compose ps'
+				sh 'docker compose logs node'
 				
             }
         }
