@@ -1,6 +1,7 @@
 require('dotenv').config()
 const db_host = process.env.DB_HOST;
 const db_name = process.env.DB_NAME;
+const PORT = process.env.PORT || 8080;
 console.log(`Mongo host is ${db_host}.... ${process.env.DB_HOST}`);
 const express = require("express");
 const cors = require("cors");
@@ -9,7 +10,7 @@ const app = express();
 
 console.log("DB_HOST in db.config =", process.env.DB_HOST);
 var corsOptions = {
-  origin: "http://localhost:8081"
+  origin: 'http://localhost:${PORT}'
 };
 
 app.use(cors(corsOptions));
@@ -48,7 +49,7 @@ app.get('/health', (req, res) => {
 require("./app/routes/turorial.routes")(app);
 
 // set port, listen for requests
-const PORT = process.env.PORT || 8080;
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });

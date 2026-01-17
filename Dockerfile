@@ -8,7 +8,7 @@ RUN npm ci
 COPY /app ./app
 COPY server.js ./
 
-EXPOSE 8091
+
 
 CMD [ "node", "server.js"]
 
@@ -23,6 +23,6 @@ COPY --from=builder /aplication/package.json ./
 COPY --from=builder /aplication/server.js ./
 
 
-EXPOSE 8091
+
 
 CMD [ "node", "server.js"]
