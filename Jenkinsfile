@@ -47,20 +47,18 @@ pipeline {
         }
 		
 	stage('Wait for platform healthy') {
-    steps {
-        script {
-            retry(10) {
-                sh '''
-                echo "Waiting for node service to be healthy..."
-                docker compose ps --services --filter "status=running"
-                docker compose ps --format json node | grep "Health"
-                '''
-                sleep 3
-            }
-        }
-    }
+		steps {
+			script {
+				retry(10) {
+					sh '''
+					echo "Waiting for node container to be healthy..."
+					docker inspect --format="json .State.Health" platform-node-test:${BUILD_ID} | grep healthy
+					'''
+					sleep 3
+				}
+			}
+		}
 }
-
 		
 		stage('Smoke Platform Test') {
             steps {
