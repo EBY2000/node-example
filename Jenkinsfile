@@ -52,7 +52,7 @@ pipeline {
 				retry(10) {
 					sh '''
 					echo "Waiting for node container to be healthy..."
-					docker inspect --format="json .State.Health" platform-node-test:${BUILD_ID} | grep starting
+					docker inspect --format="json .State.Health" platform-node-test:${BUILD_ID}
 					'''
 					sleep 3
 				}
