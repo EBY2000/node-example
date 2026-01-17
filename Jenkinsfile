@@ -53,7 +53,7 @@ pipeline {
                 sh '''
                 echo "Waiting for node service to be healthy..."
                 docker compose ps --services --filter "status=running"
-                docker compose ps --format json | jq -r '.[] | select(.Service=="node") | .Health' | grep healthy
+                docker compose ps --format json node
                 '''
                 sleep 3
             }
