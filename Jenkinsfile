@@ -52,7 +52,7 @@ pipeline {
 				retry(10) {
 					sh '''
 					echo "Waiting for node container to be healthy..."
-					docker inspect --format='{{json State}}' platform-node-test:${BUILD_ID}
+					docker inspect --format='{{range .NetworkSettings.Networks}}{{println .IPAddress}}{{end}}' platform-node-test:${BUILD_ID}
 					'''
 					sleep 3
 				}
