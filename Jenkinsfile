@@ -47,18 +47,29 @@ pipeline {
         }
 		
 	stage('Wait for platform healthy') {
-		steps {
-			script {
-				retry(10) {
-					sh '''
-					echo "Waiting for node container to be healthy..."
-					docker inspect --format='{{range .NetworkSettings.Networks}}{{println .IPAddress}}{{end}}' platform-node-test:${BUILD_ID}
-					'''
-					sleep 3
-				}
-			}
-		}
+    steps {
+        script {
+            retry(10) {
+                sh '''
+                CID=$(docker compose ps -q node)
+
+                if [ -z "$CID" ]; then
+                  echo "Container not created yet"
+                  exit 1
+                fi
+
+                STATUS=$(docker inspect --format='{{.State.Health.Status}}' $CID)
+
+                echo "Health status: $STATUS"
+
+                [ "$STATUS" = "healthy" ]
+                '''
+                sleep 3
+            }
+        }
+    }
 }
+
 		
 		stage('Smoke Platform Test') {
             steps {
