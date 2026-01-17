@@ -47,28 +47,31 @@ pipeline {
         }
 		
 	stage('Wait for platform healthy') {
-    steps {
-        script {
-            retry(10) {
-                sh '''
-                CID=$(docker compose ps -q node)
+		steps {
+			script {
+				retry(15) {
+					sh '''
+					CID=$(docker compose ps -q node)
 
-                if [ -z "$CID" ]; then
-                  echo "Container not created yet"
-                  exit 1
-                fi
+					if [ -z "$CID" ]; then
+					  echo "Container not created yet"
+					  sleep 3
+					  exit 1
+					fi
 
-                STATUS=$(docker inspect --format='{{.State.Health.Status}}' $CID)
+					STATUS=$(docker inspect --format='{{.State.Health.Status}}' $CID)
+					echo "Health status: $STATUS"
 
-                echo "Health status: $STATUS"
+					if [ "$STATUS" != "healthy" ]; then
+					  sleep 3
+					  exit 1
+					fi
+					'''
+				}
+			}
+		}
+	}
 
-                [ "$STATUS" = "healthy" ]
-                '''
-                sleep 3
-            }
-        }
-    }
-}
 
 		
 		stage('Smoke Platform Test') {
