@@ -59,7 +59,7 @@ pipeline {
 		stage('Smoke tests') {
 			steps {
 				script{
-					SmokeTest("localhost",$PORT,10)
+					SmokeTest("localhost",${PORT},10)
 				}
 			}
 		}
