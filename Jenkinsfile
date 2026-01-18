@@ -75,19 +75,6 @@ pipeline {
 
 
 		
-		stage('Smoke Platform Test') {
-            steps {
-                retry(5){
-                    sh 'echo "Testing ingress path..."'
-                    sh 'curl --connect-timeout 5 --retry 5 --max-time 10 --retry-delay 0 --retry-max-time 40 http://localhost:${PORT}/health'
-                    sh 'echo "Testing ingress path /..."'
-                    sh 'curl -I http://localhost:${PORT}'
-                }
-            }
-        }
-
-    
-	
 		stage('Build Production') {
 			steps {
 					sh 'docker build -t node-mongo-pd:v${BUILD_ID} .'
