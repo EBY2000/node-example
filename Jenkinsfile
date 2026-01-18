@@ -47,13 +47,19 @@ pipeline {
             }
         }
 		
-	stage('Wait for platform healthy') {
-		steps {
-			script {
-				waitForHealthy('node')
+		stage('Wait for platform healthy') {
+			steps {
+				script {
+					waitForHealthy('node')
+				}
 			}
 		}
-	}
+		stage('Smoke tests') {
+			steps {
+				sh 'curl -f http://localhost:${PORT}/health'
+				sh 'curl -f http://localhost:${PORT}/'
+			}
+		}
 
 
 		
