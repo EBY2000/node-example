@@ -58,7 +58,9 @@ pipeline {
 		}
 		stage('Smoke tests') {
 			steps {
-				SmokeHealth("localhost",$PORT,10)
+				script{
+					SmokeHealth("localhost",$PORT,10)
+				}
 			}
 		}
 
