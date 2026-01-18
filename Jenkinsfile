@@ -1,3 +1,5 @@
+@Library('jenkins-shared-lib') _
+
 pipeline {
     agent any
 
@@ -82,24 +84,4 @@ pipeline {
         }
     }
 }
-def waitForHealthy(serviceName, retries = 15) {
-    retry(retries) {
-        sh """
-        CID=\$(docker compose ps -q ${serviceName})
 
-        if [ -z "\$CID" ]; then
-          echo "Container not created yet"
-          sleep 3
-          exit 1
-        fi
-
-        STATUS=\$(docker inspect --format='{{.State.Health.Status}}' \$CID)
-        echo "Health status: \$STATUS"
-
-        if [ "\$STATUS" != "healthy" ]; then
-          sleep 3
-          exit 1
-        fi
-        """
-    }
-}
