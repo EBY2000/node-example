@@ -30,7 +30,7 @@ pipeline {
 
         stage('Build Platform Images TEST') {
             steps {
-                sh 'docker build --target builder -t platform-node-test:${BUILD_ID} .'
+                sh 'docker build -t platform-node-test:${BUILD_ID} .'
                 
             }
         }
