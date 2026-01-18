@@ -10,10 +10,6 @@ COPY /app ./app
 COPY server.js ./
 
 
-
-CMD [ "node", "server.js"]
-
-
 FROM node:18-slim
 
 WORKDIR /aplication
