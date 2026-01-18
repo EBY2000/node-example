@@ -1,7 +1,7 @@
 FROM node:18-slim AS builder
 
 WORKDIR /aplication
-
+RUN apt-get -y update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 
 COPY package.json package-lock.json ./
 RUN npm ci
