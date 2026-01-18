@@ -58,8 +58,7 @@ pipeline {
 		}
 		stage('Smoke tests') {
 			steps {
-				sh 'curl -f http://localhost:${PORT}/health'
-				sh 'curl -f http://localhost:${PORT}/'
+				SmokeHealth("localhost",$PORT,10)
 			}
 		}
 
