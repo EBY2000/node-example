@@ -21,7 +21,7 @@ pipeline {
 					WithEnvFile([
 						DB_HOST: 'mongo_db',
 						DB_NAME: 'bezkoder_db',
-						PORT: PORT,
+						PORT: 8091,
 						SERVICE_TAG: BUILD_ID
 					]) {
 						DockerBuild("platform-node-test","v${BUILD_ID}")
