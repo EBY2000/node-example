@@ -10,19 +10,7 @@ pipeline {
         DB_NAME = 'bezkoder_db'
     }
 
-    stages {
-        stage("Set environment variables") {
-            steps {
-                script {
-                   def date = new Date()
-                   def data = "DB_HOST='${DB_HOST}'\nPORT='${PORT}'\nDB_NAME='${DB_NAME}'\nSERVICE_TAG=${BUILD_ID}"
-                   writeFile(file: '.env', text: data)
-                   
-               }
-            }
-        }
-
-        stage('Prepare Platform') {
+    stage('Prepare Platform') {
             steps {
                 script {
 				PrepareCompose()
