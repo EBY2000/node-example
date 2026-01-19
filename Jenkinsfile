@@ -28,7 +28,8 @@ pipeline {
 						DockerBuild("platform-node-test","v${BUILD_ID}")
 						ComposeUp()
 						waitForHealthy('node')
-						SmokeTest('localhost', PORT.toInteger())
+						SmokeTest('localhost', 8091)
+						ComposeDown()
 						
 					}
 				}
@@ -53,6 +54,7 @@ pipeline {
         always {
             script {
 				ComposeDown()
+				sh 'rm -f .env'
 			}
             
         }
