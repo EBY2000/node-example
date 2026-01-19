@@ -29,7 +29,7 @@ pipeline {
 						ComposeUp()
 						waitForHealthy('node')
 						SmokeTest('localhost', 8091)
-						ComposeDown()
+						
 						
 					}
 				}
@@ -54,7 +54,7 @@ pipeline {
         always {
             script {
 				ComposeDown()
-				sh 'rm -f .env'
+				DeleteEnv()
 			}
             
         }
