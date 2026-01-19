@@ -2,7 +2,7 @@ services:
   
   node:
     #build: .
-    image: platform-node-test:${SERVICE_TAG}
+    image: platform-node-test:v${SERVICE_TAG}
     #image: node-mongodb:v3 #local
     networks:
         backend: {}
