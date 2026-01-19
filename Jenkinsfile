@@ -3,14 +3,10 @@
 pipeline {
     agent any
 
-    environment {
-        COMPOSE_PROJECT='Node-MongoDb-Example'
-        DB_HOST = 'mongo_db'
-        PORT = '8081'
-        DB_NAME = 'bezkoder_db'
-    }
+    stages {
+        
 
-    stage('Prepare Platform') {
+        stage('Prepare Platform') {
             steps {
                 script {
 				PrepareCompose()
@@ -59,5 +55,5 @@ pipeline {
             
         }
     }
-
+}
 
