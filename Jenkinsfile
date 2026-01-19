@@ -18,7 +18,7 @@ pipeline {
         stage('Deploy') {
 			steps {
 				script {
-					WithEnvFile([
+					withEnvFile([
 						DB_HOST: 'mongo_db',
 						DB_NAME: 'bezkoder_db',
 						PORT: 8091,
