@@ -41,7 +41,7 @@ pipeline {
 			steps {
 				script{
 					
-					DockerBuild('platform-node-prod')
+					DockerBuild('platform-node-prod', 'latest')
 					}
 			}
 		}
