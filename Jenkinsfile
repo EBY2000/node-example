@@ -10,7 +10,7 @@ pipeline {
             steps {
                 script {
 				PrepareCompose()
-				ComposeDown()
+				
 				}
             }
         }
@@ -24,6 +24,7 @@ pipeline {
 						PORT: 8091,
 						SERVICE_TAG: BUILD_ID
 					]) {
+						ComposeDown()
 						DockerBuild("platform-node-test","v${BUILD_ID}")
 						ComposeUp()
 						waitForHealthy('node')
