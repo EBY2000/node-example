@@ -29,6 +29,7 @@ pipeline {
 						ComposeUp()
 						waitForHealthy('node')
 						SmokeTest('localhost', PORT.toInteger())
+						ComposeDown()
 					}
 				}
 			}
@@ -39,6 +40,7 @@ pipeline {
 		stage('Build Production') {
 			steps {
 				script{
+					
 					DockerBuild('platform-node-prod')
 					}
 			}
@@ -48,13 +50,6 @@ pipeline {
 	
 	
 
-    post {
-        always {
-            script {
-				ComposeDown()
-			}
-            
-        }
-    }
+    
 }
 
