@@ -29,7 +29,7 @@ pipeline {
 						ComposeUp()
 						waitForHealthy('node')
 						SmokeTest('localhost', PORT.toInteger())
-						ComposeDown()
+						
 					}
 				}
 			}
@@ -50,6 +50,13 @@ pipeline {
 	
 	
 
-    
+    post {
+        always {
+            script {
+				ComposeDown()
+			}
+            
+        }
+    }
 }
 
