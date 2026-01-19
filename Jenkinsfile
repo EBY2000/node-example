@@ -24,42 +24,27 @@ pipeline {
 
         stage('Prepare Platform') {
             steps {
-                sh 'docker --version'
-                sh 'docker compose version || true'
-                sh 'docker compose down -v || true'
+                script {
+				PrepareCompose()
+				ComposeDown()
+				}
             }
         }
 
-        stage('Build Platform Images TEST') {
-            steps {
-                sh 'docker build -t platform-node-test:${BUILD_ID} .'
-                
-            }
-        }
-
-        stage('Runtime Platform Up') {
-            steps {
-				
-				
-				sh 'docker compose up -d'
-				sh 'echo "Checking containers..."'
-				sh 'docker compose ps'
-				sh 'docker compose logs node'
-				
-            }
-        }
-		
-		stage('Wait for platform healthy') {
+        stage('Deploy') {
 			steps {
 				script {
-					waitForHealthy('node')
-				}
-			}
-		}
-		stage('Smoke tests') {
-			steps {
-				script{
-					SmokeTest("localhost",PORT.toInteger(),10)
+					WithEnvFile([
+						DB_HOST: 'mongo_db',
+						DB_NAME: 'bezkoder_db',
+						PORT: PORT,
+						SERVICE_TAG: BUILD_ID
+					]) {
+						DockerBuild("platform-node-test","v${BUILD_ID}")
+						ComposeUp()
+						waitForHealthy('node')
+						SmokeTest('localhost', PORT.toInteger())
+					}
 				}
 			}
 		}
@@ -68,8 +53,9 @@ pipeline {
 		
 		stage('Build Production') {
 			steps {
-					sh 'docker build -t node-mongo-pd:v${BUILD_ID} .'
-					sh 'docker tag node-mongo-pd:v${BUILD_ID} node-mongo-pd'
+				script{
+					DockerBuild('platform-node-prod')
+					}
 			}
 		}
 		
@@ -79,8 +65,9 @@ pipeline {
 
     post {
         always {
-            sh 'docker compose down -v || true'
-            sh 'docker rmi platform-node-test:${BUILD_ID}'
+            script {
+				ComposeDown()
+			}
             
         }
     }
