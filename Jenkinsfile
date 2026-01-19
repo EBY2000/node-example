@@ -40,8 +40,7 @@ pipeline {
 		stage('Build Production') {
 			steps {
 				script{
-					
-					DockerBuild('platform-node-prod', 'latest')
+					DockerBuild("platform-node-prod")
 					}
 			}
 		}
