@@ -45,21 +45,22 @@ pipeline {
 					}
 			}
 		}
+		stage('Publish') {
+		steps {
+			script {
+				dockerPush(
+					"platform-node-test",
+					BUILD_ID,
+					"docker.io/yourusername",
+					"docker-registry-creds"
+				)
+			}
+		}
+		}
 		
 	}
 	
-	stage('Publish') {
-    steps {
-        script {
-            dockerPush(
-                "platform-node-test",
-                BUILD_ID,
-                "docker.io/yourusername",
-                "docker-registry-creds"
-            )
-        }
-    }
-}
+	
 	
 	
 
