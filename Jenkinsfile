@@ -51,7 +51,7 @@ pipeline {
 					dockerPush(
 						"platform-node-prod",
 						BUILD_ID,
-						"docker.io/bonhead",
+						"bonhead",
 						"docker-registry-creds"
 					)
 				}
