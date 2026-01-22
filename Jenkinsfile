@@ -46,16 +46,16 @@ pipeline {
 			}
 		}
 		stage('Publish') {
-		steps {
-			script {
-				dockerPush(
-					"platform-node-test",
-					BUILD_ID,
-					"docker.io/yourusername",
-					"docker-registry-creds"
-				)
+			steps {
+				script {
+					dockerPush(
+						"platform-node-test",
+						BUILD_ID,
+						"bonhead/node-mongo",
+						"docker-registry-creds"
+					)
+				}
 			}
-		}
 		}
 		
 	}
