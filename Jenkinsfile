@@ -51,7 +51,7 @@ pipeline {
 					dockerPush(
 						"platform-node-test",
 						BUILD_ID,
-						"bonhead/node-mongo",
+						"docker.io/bonhead",
 						"docker-registry-creds"
 					)
 				}
