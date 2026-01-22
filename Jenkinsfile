@@ -49,7 +49,7 @@ pipeline {
 			steps {
 				script {
 					dockerPush(
-						"platform-node-test",
+						"platform-node-prod",
 						BUILD_ID,
 						"docker.io/bonhead",
 						"docker-registry-creds"
