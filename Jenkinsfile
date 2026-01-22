@@ -41,7 +41,7 @@ pipeline {
 		stage('Build Production') {
 			steps {
 				script{
-					DockerBuild("platform-node-prod","latest")
+					DockerBuild("platform-node-prod","v${BUILD_ID}")
 					}
 			}
 		}
@@ -50,7 +50,7 @@ pipeline {
 				script {
 					dockerPush(
 						"platform-node-prod",
-						"latest",
+						"BUILD_ID",
 						"docker.io/bonhead",
 						"docker-registry-creds"
 					)
