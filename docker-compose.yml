@@ -5,7 +5,8 @@ services:
     image: platform-node-test:v${SERVICE_TAG}
     #image: node-mongodb:v3 #local
     networks:
-        backend: {}
+        backend: 
+            ipv4_address: 172.20.0.5
     
     environment:
       - DB_HOST=${DB_HOST}
