@@ -28,7 +28,7 @@ pipeline {
 						DockerBuild("platform-node-test","v${BUILD_ID}")
 						ComposeUp()
 						waitForHealthy('node')
-						SmokeTest('node.docker.internal', 8091)
+						SmokeTest('node', 8091)
 						
 						
 					}
