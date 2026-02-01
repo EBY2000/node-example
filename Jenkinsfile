@@ -64,14 +64,14 @@ pipeline {
 	
 	
 
-    post {
-        always {
-            script {
-				ComposeDown()
-				DeleteEnv()
-			}
+    // post {
+    //     always {
+    //         script {
+	// 			ComposeDown()
+	// 			DeleteEnv()
+	// 		}
             
-        }
-    }
+    //     }
+    // }
 }
 
